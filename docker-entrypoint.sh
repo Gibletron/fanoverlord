@@ -43,7 +43,6 @@ TEMP9=65
 function gettemp()
 {
   TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { print SUM/NR }')
-  echo $TEMP | cut -d "." -f 1
   echo "$TEMP"
 }
 
