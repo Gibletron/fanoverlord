@@ -20,7 +20,6 @@ IPMIPW=${IPMIPW} # <Password for the iDRAC
 # Change this to the temperature in celcius you are comfortable with.
 # If the temperature goes above the set degrees it will send raw IPMI command to enable dynamic fan control
 # According to iDRAC Min Warning is 42C and Failure (shutdown) is 47C
-TEMPoff=15
 TEMP0=20
 TEMP1=25
 TEMP2=30
@@ -32,8 +31,6 @@ TEMP7=55
 TEMP8=60
 TEMP9=65
 
-
-
 # Last Octal controls values to know
 # Query Fan speeds
 # ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type fan
@@ -41,16 +38,7 @@ TEMP9=65
 # Fan Power Percentages
 # 0x00 = 0%
 # 0x64 = 100%
-#
-# R610 RPM values
-# 0b = 2280 RPM
-# 0e = 2640 RPM
-# 0f = 2760 RPM
-# 10 = 3000 RPM
-# 1a = 4800 RPM
-# 20 = 5880 RPM
-# 30 = 8880 RPM
-# 50 = 14640 RPM
+
 
 
 function temp8-fan()
@@ -143,52 +131,52 @@ do
     FanAuto
   fi
 
-  if [[ $CurrentTemp < $TEMP8 ]]; then
+  if [[ $CurrentTemp -gt $TEMP8 && $CurrentTemp -le $TEMP9 ]]; then
     EMERGENCY=false
     temp8-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP7 ]]; then
+  if [[ $CurrentTemp -gt $TEMP7 && $CurrentTemp -le $TEMP8 ]]; then
     EMERGENCY=false
     temp7-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP6 ]]; then
+  if [[ $CurrentTemp -gt $TEMP6 && $CurrentTemp -le $TEMP7 ]]; then
     EMERGENCY=false
     temp6-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP5 ]]; then
+  if [[ $CurrentTemp -gt $TEMP5 && $CurrentTemp -le $TEMP6 ]]; then
     EMERGENCY=false
     temp5-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP4 ]]; then
+  if [[ $CurrentTemp -gt $TEMP4 && $CurrentTemp -le $TEMP5 ]]; then
     EMERGENCY=false
     temp4-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP3 ]]; then
+  if [[ $CurrentTemp -gt $TEMP3 && $CurrentTemp -le $TEMP4 ]]; then
     EMERGENCY=false
     temp3-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP2 ]]; then
+  if [[ $CurrentTemp -gt $TEMP2 && $CurrentTemp -le $TEMP3 ]]; then
     EMERGENCY=false
     temp2-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP1 ]]; then
+  if [[ $CurrentTemp -gt $TEMP1 && $CurrentTemp -le $TEMP2 ]]; then
     EMERGENCY=false
     temp1-fan
   fi
   
-  if [[ $CurrentTemp < $TEMP0 ]]; then
+  if [[ $CurrentTemp -gt $TEMP0 && $CurrentTemp -le $TEMP1 ]]; then
     EMERGENCY=false
     temp0-fan
   fi
   
-  if [[ $CurrentTemp < $TEMPoff ]]; then
+  if [[ $CurrentTemp < $TEMP0 ]]; then
     EMERGENCY=true
     FanAuto
   fi
