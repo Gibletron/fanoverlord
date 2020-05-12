@@ -1,5 +1,5 @@
 # Use the official Docker Hub Ubuntu 16.04 Image
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
 # Update the base image
 RUN apt-get update && apt-get dist-upgrade -y && apt-get autoremove --purge -y
