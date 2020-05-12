@@ -55,63 +55,63 @@ TEMP9=65
 
 function temp8-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 70%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x46
 }
 
 function temp7-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 60%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x3c
 }
 
 function temp6-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 50%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x32
 }
 
 function temp5-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 40%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x28
 }
 
 function temp4-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 35%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x23
 }
 
 function temp3-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 30%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x1e
 }
 
 function temp2-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 25%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x19
 }
 
 function temp1-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 20%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x14
 }
 
 function temp0-fan()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 15%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
 }
@@ -131,9 +131,9 @@ function gettemp()
 }
 
 # Start by setting the fans to default low level
-echo "Info: Activating manual fan speeds (2280 RPM)"
+echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 10%"
 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
+ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0a
 
 while :
 do
