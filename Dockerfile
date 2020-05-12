@@ -12,4 +12,9 @@ COPY docker-entrypoint.sh /
 RUN chmod a+x /docker-entrypoint.sh
 
 # Load the entrypoint script to be run later
+
+ENV IPMIHOST 192.168.1.212
+ENV IPMIUSER root
+ENV IPMIPW calvin
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
