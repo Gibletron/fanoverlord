@@ -38,14 +38,14 @@ TEMP9=65
 # 0x64 = 100%
 
 # Start by setting the fans to default low level
-TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { print SUM/NR }')
+TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { printf("%.0f\n", SUM/NR) }')
 echo "Info: Current temp: ($TEMP C), activating manual fan speed: 25%"
 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x19
 
 while :
 do
-  CurrentTemp=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { print SUM/NR }')
+  CurrentTemp=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { printf("%.0f\n", SUM/NR) }')
   
   if [[ $CurrentTemp > $TEMP9 ]]; then
 	echo "Critical: Current temp: ($CurrentTemp C) is above $TEMP9 ! Activating dyanmic fan control!"
