@@ -7,8 +7,6 @@
 # Requires:
 # ipmitool – apt-get install ipmitool
 # ----------------------------------------------------------------------------------
-# Set the state of Emergency (is it too hot or not)
-EMERGENCY=false
 
 # IPMI SETTINGS:
 # DEFAULT IP: 192.168.0.120
@@ -39,21 +37,15 @@ TEMP9=65
 # 0x00 = 0%
 # 0x64 = 100%
 
-
-function gettemp()
-{
-  TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { print SUM/NR }')
-  echo "$TEMP"
-}
-
 # Start by setting the fans to default low level
-echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 25%"
+TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { print SUM/NR }')
+echo "Info: Current temp: ($TEMP C), activating manual fan speed: 25%"
 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x19
 
 while :
 do
-  CurrentTemp=$(gettemp)
+  CurrentTemp=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type Temperature |grep Temp |grep degrees |grep -Po '\d{2}' | tail -2 | awk '{ SUM += $1} END { print SUM/NR }')
   
   if [[ $CurrentTemp > $TEMP9 ]]; then
 	echo "Critical: Current temp: ($CurrentTemp C) is above $TEMP9 ! Activating dyanmic fan control!"
@@ -63,55 +55,55 @@ do
   if [[ $CurrentTemp -gt $TEMP8 && $CurrentTemp -le $TEMP9 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 70%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x46
+   	 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x46
   fi
   
   if [[ $CurrentTemp -gt $TEMP7 && $CurrentTemp -le $TEMP8 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 60%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x3c
+   	 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x3c
   fi
   
   if [[ $CurrentTemp -gt $TEMP6 && $CurrentTemp -le $TEMP7 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 50%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x32
+   	 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x32
   fi
   
   if [[ $CurrentTemp -gt $TEMP5 && $CurrentTemp -le $TEMP6 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 40%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x28
+   	 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x28
   fi
   
   if [[ $CurrentTemp -gt $TEMP4 && $CurrentTemp -le $TEMP5 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 35%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x23
+   	 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x23
   fi
   
   if [[ $CurrentTemp -gt $TEMP3 && $CurrentTemp -le $TEMP4 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 30%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x1e
+   	 ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x1e
   fi
   
   if [[ $CurrentTemp -gt $TEMP2 && $CurrentTemp -le $TEMP3 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 25%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x19
+    	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x19
   fi
   
   if [[ $CurrentTemp -gt $TEMP1 && $CurrentTemp -le $TEMP2 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 20%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x14
+    	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x14
   fi
   
   if [[ $CurrentTemp -gt $TEMP0 && $CurrentTemp -le $TEMP1 ]]; then
 	echo "Info: Current temp: ($CurrentTemp C), activating manual fan speed: 15%"
 	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-    ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
+    	ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
   fi
   
   if [[ $CurrentTemp < $TEMP0 ]]; then
