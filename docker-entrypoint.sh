@@ -18,16 +18,16 @@ IPMIPW=${IPMIPW} # <Password for the iDRAC
 # Change this to the temperature in celcius you are comfortable with.
 # If the temperature goes above the set degrees it will send raw IPMI command to enable dynamic fan control
 # According to iDRAC Min Warning is 42C and Failure (shutdown) is 47C
-TEMP0=20
-TEMP1=25
-TEMP2=30
-TEMP3=35
-TEMP4=40
-TEMP5=45
-TEMP6=50
-TEMP7=55
-TEMP8=60
-TEMP9=65
+TEMP0=50
+TEMP1=60
+TEMP2=60
+TEMP3=65
+TEMP4=65
+TEMP5=70
+TEMP6=70
+TEMP7=75
+TEMP8=75
+TEMP9=80
 
 # Last Octal controls values to know
 # Query Fan speeds
